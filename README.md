@@ -31,5 +31,16 @@ This repository implements Lab 1: AIOps Observability as requested.
 ## Traffic generator
 `python traffic_generator.py`
 
+## Lab2 Detection Engine
+
+### Command
+`php artisan aiops:detect`
+
+### Behavior
+- Polls Prometheus every ~25s
+- Computes baseline and detects latency/error/traffic anomalies
+- Correlates incidents and writes to `storage/aiops/incidents.json`
+- Emits alerts to console + `storage/aiops/alerts.json`
+
 ## Notes
 - No PHP or Composer installed in this environment, so you must run on a proper dev machine.
