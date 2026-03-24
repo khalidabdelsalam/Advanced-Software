@@ -1,0 +1,60 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "aiops-observability",
+    "title": "AIOps Observability Lab 1",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Request rate (RPS)",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[1m])",
+            "legendFormat": "{{path}} {{method}}"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Error rate %",
+        "targets": [
+          {
+            "expr": "(rate(http_errors_total[1m]) / rate(http_requests_total[1m])) * 100",
+            "legendFormat": "{{path}}"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Latency P50/P95/P99 (s)",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, path))",
+            "legendFormat": "p50"
+          },
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, path))",
+            "legendFormat": "p95"
+          },
+          {
+            "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, path))",
+            "legendFormat": "p99"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Error category breakdown",
+        "targets": [
+          {
+            "expr": "sum(rate(http_errors_total[1m])) by (error_category)",
+            "legendFormat": "{{error_category}}"
+          }
+        ]
+      }
+    ],
+    "schemaVersion": 26,
+    "version": 1
+  },
+  "overwrite": true
+}

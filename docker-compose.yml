@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  app:
+    image: laravelsail/php80-composer:latest
+    container_name: aiops_app
+    working_dir: /var/www/html
+    volumes:
+      - ./laravel-app:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - aiops_net
+    ports:
+      - '8000:8000'
+    command: bash -lc "composer install && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"
+
+  db:
+    image: mysql:8.0
+    container_name: aiops_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: aiops
+      MYSQL_USER: app
+      MYSQL_PASSWORD: secret
+    ports:
+      - '3306:3306'
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - aiops_net
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: aiops_prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - app
+    networks:
+      - aiops_net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: aiops_grafana
+    ports:
+      - '3000:3000'
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/aiops-dashboard.json:/etc/grafana/provisioning/dashboards/aiops-dashboard.json:ro
+    depends_on:
+      - prometheus
+    networks:
+      - aiops_net
+
+networks:
+  aiops_net:
+
+volumes:
+  dbdata:
+  grafana_data:

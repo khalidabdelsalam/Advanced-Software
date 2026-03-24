@@ -1,0 +1,7 @@
+vendor/
+node_modules/
+.env
+/storage/*.key
+/storage/*.sqlite
+/laravel-app/vendor/
+/laravel-app/node_modules/
