@@ -42,5 +42,16 @@ This repository implements Lab 1: AIOps Observability as requested.
 - Correlates incidents and writes to `storage/aiops/incidents.json`
 - Emits alerts to console + `storage/aiops/alerts.json`
 
+## Lab5 Automated Incident Response
+
+### Command
+`php artisan aiops:respond`
+
+### Behavior
+- Monitors `storage/aiops/incidents.json`
+- Applies response policies from `config/aiops_responses.php`
+- Simulates actions (restart, scale, alert, throttle) and logs to `storage/aiops/responses.json`
+- Escalates to `CRITICAL_ALERT` on failed action or persistent anomalies
+
 ## Notes
 - No PHP or Composer installed in this environment, so you must run on a proper dev machine.

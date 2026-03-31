@@ -9,6 +9,7 @@ class Kernel extends ConsoleKernel
 {
     protected $commands = [
         \App\Console\Commands\AIOpsDetect::class,
+        \App\Console\Commands\AIOpsRespond::class,
     ];
 
     protected function schedule(Schedule $schedule)
