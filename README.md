@@ -16,6 +16,7 @@ This repository implements Lab 1: AIOps Observability as requested.
 - Docker Desktop (for full stack run)
 - PHP 8.1+, Composer
 - Node/npm (for Laravel frontend if needed)
+- Python 3.10+ with `pandas` and `matplotlib` for Lab 4 RCA
 
 ## Install and run
 1. `docker-compose up -d`
@@ -41,6 +42,19 @@ This repository implements Lab 1: AIOps Observability as requested.
 - Computes baseline and detects latency/error/traffic anomalies
 - Correlates incidents and writes to `storage/aiops/incidents.json`
 - Emits alerts to console + `storage/aiops/alerts.json`
+
+## Lab4 Root Cause Analysis
+
+### Command
+`python lab4_root_cause_analysis.py`
+
+### Behavior
+- Selects a detected anomaly window from `anomaly_predictions.csv`
+- Analyzes latency, request rate, error rate, endpoint activity, and error categories
+- Determines the most likely source endpoint for the incident
+- Generates structured RCA output in `rca_report.json`
+- Creates timeline visualization in `lab4_incident_timeline.png`
+- Produces a narrative report in `lab4_rca_report.md`
 
 ## Lab5 Automated Incident Response
 

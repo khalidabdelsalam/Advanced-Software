@@ -1,0 +1,46 @@
+{
+  "incident_id": "98444ab7-e1c3-4d79-913f-c161fb20ee56",
+  "incident_start": "2026-03-24T20:58:30+00:00",
+  "incident_end": "2026-03-24T20:59:00+00:00",
+  "selected_endpoints": [
+    "/api/slow",
+    "/api/validate"
+  ],
+  "root_cause_endpoint": "/api/validate",
+  "primary_signal": "ERROR_SURGE",
+  "supporting_evidence": [
+    "Selected window 2026-03-24T20:58:30+00:00 to 2026-03-24T20:59:00+00:00 includes 7 metric rows.",
+    "Endpoint /api/validate had incident latency 0.283s vs baseline 0.295s.",
+    "Endpoint /api/validate error rate delta is 0.206.",
+    "Error categories during the incident: NONE=5, SYSTEM_ERROR=1, VALIDATION_ERROR=1."
+  ],
+  "error_category_distribution": {
+    "NONE": 5,
+    "SYSTEM_ERROR": 1,
+    "VALIDATION_ERROR": 1
+  },
+  "confidence_score": 0.81,
+  "recommended_action": "Inspect failure handling for /api/validate, including validation logic, database connectivity, and system error propagation.",
+  "timeline": [
+    {
+      "phase": "normal_state",
+      "timestamp": "2026-03-24T20:58:00+00:00",
+      "description": "Pre-incident state shows baseline latency and error rates."
+    },
+    {
+      "phase": "anomaly_start",
+      "timestamp": "2026-03-24T20:58:30+00:00",
+      "description": "Anomaly window begins with multiple endpoint deviations."
+    },
+    {
+      "phase": "peak_incident",
+      "timestamp": "2026-03-24T21:00:30+00:00",
+      "description": "Peak incident when /api/slow showed maximum latency (6.308s)."
+    },
+    {
+      "phase": "recovery",
+      "timestamp": "2026-03-24T20:59:30+00:00",
+      "description": "Recovery observed when endpoint activity returns to normal levels."
+    }
+  ]
+}
